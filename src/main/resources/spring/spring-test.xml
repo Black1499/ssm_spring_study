@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="serviceImpl1" class="com.lzx.service.TestServiceImpl1" />
+    <bean id="serviceImpl2" class="com.lzx.service.TestServiceImpl2" />
+
+    <bean id="book1" class="com.lzx.entity.Book">
+        <constructor-arg index="0" value="我的世界1"/>
+        <constructor-arg index="1" value="34"/>
+        <constructor-arg index="2" value="2002-12-12"/>
+    </bean>
+
+    <bean id="book2" class="com.lzx.entity.Book">
+        <constructor-arg index="0" value="我的世界2"/>
+        <constructor-arg index="1" value="34"/>
+        <constructor-arg index="2" value="2002-12-12"/>
+    </bean>
+
+    <bean id="author" class="com.lzx.entity.Author">
+        <property name="name" value="张伞"/>
+        <property name="sex" value="女"/>
+        <property name="height" value="164"/>
+    </bean>
+
+    <bean id="authorBook" class="com.lzx.entity.Author" parent="author">
+        <property name="book" ref="book1"/>
+    </bean>
+
+    <bean id="authorBooks" class="com.lzx.entity.Author">
+        <property name="list">
+            <list>
+                <value>book1</value>
+                <value>book2</value>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,18 @@
+<xml>
+    <bean id="a" class="xxx.zz.A" />
+    <bean id="b" class="xxx.cc.B">
+        <property name="a" value="a"></property>
+    </bean>
+    <bean id="conn" class="xxx.cc.SqlConnection">
+        <property name="b" value="b"/>
+    </bean>
+    <bean id="logger" class="xxx.cc.SqlLogger">
+        <property name="service" value="service"/>
+    </bean>
+    <bean id="service" class="xxx.cc.SqlService">
+        <property name="conn" value="conn"/>
+    </bean>
+    <bean id="web" class="xxx.cc.SqlWeb">
+        <property name="service" value="service"/>
+    </bean>
+</xml>
