@@ -17,7 +17,7 @@ public class EmployeeController {
 
     @GetMapping
     @ResponseBody
-    public List<Employee> listEmployee(){
+    public List<Employee> listEmployee() {
         return mapper.selectAll();
     }
 }

@@ -3,25 +3,40 @@ package com.lzx.config;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 // @ComponentScan(basePackages ="com.lzx.dao")
 // 注解装配该包下的所有bean
 
 @Configuration
-public class SpringDAOConfig {
+@PropertySource("classpath:jdbc.properties")
+public class SpringDAOConfig implements EnvironmentAware {
+
+    private Environment environment;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+
     @Bean("dataSource")
     public DataSource dataSourceConfig() throws PropertyVetoException {
 //        使用 commons-pool
@@ -40,28 +55,30 @@ public class SpringDAOConfig {
         source.setUser("root");
         source.setPassword("123456");
 
+        System.out.println(environment.getProperty("jdbc.user"));
+        System.out.println("${jdbc.driver}");
         return source;
     }
 
-    @Bean("sqlSessionFactory")
+    @Bean("sqlSessionFactoryBean")
     public SqlSessionFactoryBean sqlSessionFactoryBeanConfig() throws PropertyVetoException {
         //Resource resource = new ClassPathResource();
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(this.dataSourceConfig());
         factoryBean.setTypeAliasesPackage("com.lzx.entity");
         factoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
-        Resource[] resouces = {
+        Resource[] resources = {
                 new ClassPathResource("mappers/EmployeeMapper.xml")
         };
 
-        factoryBean.setMapperLocations(resouces);
+        factoryBean.setMapperLocations(resources);
         return factoryBean;
     }
 
     @Bean("mapperScannerConfigurer")
     public MapperScannerConfigurer mapperScannerConfigurerConfig() throws PropertyVetoException {
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-        configurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
+        configurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
         configurer.setBasePackage("com.lzx.dao");
         return configurer;
     }
@@ -77,5 +94,6 @@ public class SpringDAOConfig {
     public BeanDefinitionBuilder setProxyTargetClass() {
         return null;
     }
+
 
 }

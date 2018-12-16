@@ -16,25 +16,22 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class SpringWebConfig {
     @Bean
-    public EmployeeController getBookController(){
+    public EmployeeController getBookController() {
         return new EmployeeController();
     }
 
     @Bean
-    public InternalResourceViewResolver internalResourceViewResolverConfig(){
+    public InternalResourceViewResolver internalResourceViewResolverConfig() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setPrefix("/WEB-INF/jspcf  f/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
 
     @Bean
-    public StandardServletMultipartResolver multipartResolverConfig(){
+    public StandardServletMultipartResolver multipartResolverConfig() {
         return new StandardServletMultipartResolver();
     }
 
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();//对静态资源的请求转发到容器缺省的servlet,而不使用 DispatcherServlet
-    }
 }
