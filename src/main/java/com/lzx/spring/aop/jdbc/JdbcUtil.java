@@ -1,5 +1,6 @@
 package com.lzx.spring.aop.jdbc;
 
+import javax.management.remote.JMXConnectionNotification;
 import java.sql.*;
 
 public class JdbcUtil {
@@ -8,10 +9,6 @@ public class JdbcUtil {
     private static String url = "jdbc:mariadb://localhost:3306/testdb";
     private static String user = "root";
     private static String password = "123456";
-
-    private Connection connection = null;
-    private ResultSet resultSet = null;
-    private PreparedStatement statement = null;
 
     static {
         try {
@@ -22,6 +19,7 @@ public class JdbcUtil {
     }
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
+        System.out.println("打开数据库连接");
         return DriverManager.getConnection(url, user, password);
     }
 
@@ -54,6 +52,17 @@ public class JdbcUtil {
         }
         if (connection != null && !connection.isClosed()) {
             connection.close();
+        }
+        System.out.println("关闭数据库连接");
+    }
+
+    public static void rollBack(Connection connection){
+        try {
+            connection.rollback();
+        } catch (Exception e) {
+            System.out.println("数据回滚发生异常：" + e.getMessage());
+        } finally {
+            System.out.println("操作失败");
         }
     }
 }

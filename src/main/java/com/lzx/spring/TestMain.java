@@ -37,8 +37,10 @@ public class TestMain {
 
         System.out.println("======AOP JDBC========");
         EmployeeDAO dao = applicationContext.getBean(EmployeeDAO.class);
+
         dao.selectAll();
-        // dao.insert();
+
+        //System.out.println(dao.insert());
 
     }
 }
