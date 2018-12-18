@@ -1,4 +1,4 @@
-package com.lzx.spring;
+package com.lzx.spring.exercise;
 
 import com.lzx.service.TestService;
 import com.lzx.service.TestServiceImpl1;

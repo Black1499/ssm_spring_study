@@ -1,4 +1,4 @@
-package com.lzx.spring;
+package com.lzx.spring.exercise;
 
 public class TestSpringFactory {
     public static Object getObject(String name) {

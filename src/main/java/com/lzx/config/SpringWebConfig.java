@@ -11,20 +11,21 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 
-//@ComponentScan(basePackages = "com.lzx.web")
+@ComponentScan(basePackages = "com.lzx.web")
 @Configuration
 @EnableWebMvc
 public class SpringWebConfig {
-    @Bean
-    public EmployeeController getBookController() {
-        return new EmployeeController();
-    }
+
+//    @Bean
+//    public EmployeeController getBookController() {
+//        return new EmployeeController();
+//    }
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolverConfig() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/jspcf  f/");
+        resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
     }

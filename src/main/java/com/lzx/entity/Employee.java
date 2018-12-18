@@ -57,4 +57,15 @@ public class Employee {
     public void setBigDecimal(String bigDecimal) {
         BigDecimal = bigDecimal;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", education='" + education + '\'' +
+                ", BigDecimal='" + BigDecimal + '\'' +
+                '}';
+    }
 }
