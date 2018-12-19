@@ -1,6 +1,5 @@
 package com.lzx.spring.aop.jdbc;
 
-import javax.management.remote.JMXConnectionNotification;
 import java.sql.*;
 
 public class JdbcUtil {
@@ -18,12 +17,12 @@ public class JdbcUtil {
         }
     }
 
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
+    public static Connection getConnection() throws SQLException {
         System.out.println("打开数据库连接");
         return DriverManager.getConnection(url, user, password);
     }
 
-    public static ResultSet executeQuery(String sql, Object... objects) throws SQLException, ClassNotFoundException {
+    public static ResultSet executeQuery(String sql, Object... objects) throws SQLException {
         PreparedStatement statement = JdbcUtil.getConnection().prepareStatement(sql);
         if (objects != null) {
             for (int i = 0; i < objects.length; i++) {
@@ -33,7 +32,7 @@ public class JdbcUtil {
         return statement.executeQuery();
     }
 
-    public static int executeUpdate(String sql, Object... objects) throws SQLException, ClassNotFoundException {
+    public static int executeUpdate(String sql, Object... objects) throws SQLException {
         PreparedStatement statement = JdbcUtil.getConnection().prepareStatement(sql);
         if (objects != null) {
             for (int i = 0; i < objects.length; i++) {
@@ -43,7 +42,7 @@ public class JdbcUtil {
         return statement.executeUpdate();
     }
 
-    public static void close(ResultSet resultSet,Statement statement, Connection connection) throws SQLException {
+    public static void close(ResultSet resultSet, Statement statement, Connection connection) throws SQLException {
         if (resultSet != null && !resultSet.isClosed()) {
             resultSet.close();
         }
@@ -56,7 +55,7 @@ public class JdbcUtil {
         System.out.println("关闭数据库连接");
     }
 
-    public static void rollBack(Connection connection){
+    public static void rollBack(Connection connection) {
         try {
             connection.rollback();
         } catch (Exception e) {
