@@ -1,28 +1,19 @@
 package com.lzx.entity;
 
+import java.math.BigDecimal;
+
 public class Employee {
-    int id;
+    String id;
     String name;
     String sex;
     String education;
-    String BigDecimal;
+    BigDecimal salary;
 
-    public Employee(int id, String name, String sex, String education, String bigDecimal) {
-        this.id = id;
-        this.name = name;
-        this.sex = sex;
-        this.education = education;
-        BigDecimal = bigDecimal;
-    }
-
-    public Employee() {
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,22 +41,22 @@ public class Employee {
         this.education = education;
     }
 
-    public String getBigDecimal() {
-        return BigDecimal;
+    public BigDecimal getSalary() {
+        return salary;
     }
 
-    public void setBigDecimal(String bigDecimal) {
-        BigDecimal = bigDecimal;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", education='" + education + '\'' +
-                ", BigDecimal='" + BigDecimal + '\'' +
-                '}';
+    public Employee() {
+    }
+
+    public Employee(String id, String name, String sex, String education, BigDecimal salary) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.education = education;
+        this.salary = salary;
     }
 }

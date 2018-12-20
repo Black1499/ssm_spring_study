@@ -7,45 +7,44 @@ import org.aspectj.lang.annotation.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Aspect
 public class QueryAspect {
 
-    private Connection connection = null;
-    private ResultSet resultSet = null;
 
     @Pointcut("execution(* com.lzx.spring.aop.jdbc.EmployeeDAO.selectAll(..))")
     public void query() {
     }
 
     @Before("query()")
-    public void before() throws SQLException, ClassNotFoundException {
-        connection = JdbcUtil.getConnection();
+    public void before() throws SQLException {
+
     }
 
     @Around("query()")
-    public void around(ProceedingJoinPoint point) throws Throwable {
-        resultSet = (ResultSet) point.proceed();
-        Employee employee = null;
-        while (resultSet.next()) {
-            employee = new Employee();
-            employee.setId(Integer.parseInt(resultSet.getString(1)));
-            employee.setName(resultSet.getString(2));
-            employee.setSex(resultSet.getString(3));
-            employee.setEducation(resultSet.getString(4));
-            employee.setBigDecimal(resultSet.getString(5));
-            System.out.println(employee.toString());
+    public <T> List<T> around(ProceedingJoinPoint point) throws SQLException {
+        JdbcUtil.getConnection();
+        Connection connection = JdbcUtil.threadLocal.get();
+        try {
+            return (List<T>) point.proceed();
+        } catch (Throwable e) {
+            JdbcUtil.rollBack(connection);
+        } finally {
+            JdbcUtil.close(null, null, connection);
+
         }
+        return null;
     }
 
 
     @AfterReturning("query()")
-    public void after() throws SQLException, ClassNotFoundException {
-        JdbcUtil.close(resultSet, null, connection);
+    public void after() throws SQLException {
+
     }
 
     @AfterThrowing("query()")
     public void afterTrowing() {
-        JdbcUtil.rollBack(connection);
+
     }
 }

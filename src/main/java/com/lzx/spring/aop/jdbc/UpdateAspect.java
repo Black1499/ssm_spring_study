@@ -16,9 +16,10 @@ public class UpdateAspect {
     }
 
     @Before("insert()")
-    public void before() throws SQLException, ClassNotFoundException {
-        connection = JdbcUtil.getConnection();
-
+    public void before() throws SQLException {
+        JdbcUtil.getConnection();
+        connection = JdbcUtil.threadLocal.get();
+        connection.setAutoCommit(false);
     }
 
     @Around("insert()")
@@ -28,8 +29,8 @@ public class UpdateAspect {
 
     @AfterReturning("insert()")
     public void after() throws SQLException {
+        connection.setAutoCommit(true);
         JdbcUtil.close(null, null, connection);
-
     }
 
     @AfterThrowing("insert()")

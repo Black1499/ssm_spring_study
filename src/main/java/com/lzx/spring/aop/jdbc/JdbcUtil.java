@@ -1,6 +1,9 @@
 package com.lzx.spring.aop.jdbc;
 
+import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JdbcUtil {
 
@@ -8,6 +11,9 @@ public class JdbcUtil {
     private static String url = "jdbc:mariadb://localhost:3306/testdb";
     private static String user = "root";
     private static String password = "123456";
+
+    // 确保Connection不被其他线程滥用
+    public static ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
     static {
         try {
@@ -17,28 +23,43 @@ public class JdbcUtil {
         }
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static void getConnection() throws SQLException {
         System.out.println("打开数据库连接");
-        return DriverManager.getConnection(url, user, password);
+        threadLocal.set(DriverManager.getConnection(url, user, password));
     }
 
-    public static ResultSet executeQuery(String sql, Object... objects) throws SQLException {
-        PreparedStatement statement = JdbcUtil.getConnection().prepareStatement(sql);
+    public static <T> List<T> executeQuery(String sql, Class<T> clazz,Object... objects) throws SQLException, IllegalAccessException, InstantiationException, NoSuchFieldException {
+        List<T> list = new ArrayList<>();
+        PreparedStatement statement = threadLocal.get().prepareStatement(sql);
         if (objects != null) {
             for (int i = 0; i < objects.length; i++) {
                 statement.setObject((i + 1), objects[i]);
             }
         }
-        return statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        while (resultSet.next()){
+            T obj = clazz.newInstance();
+            for (int i = 1; i <= resultSetMetaData.getColumnCount() ; i++) {
+                String columnName = resultSetMetaData.getColumnName(i);
+                Field field = clazz.getDeclaredField(columnName);
+                field.setAccessible(true);
+                field.set(obj, resultSet.getObject(i));
+            }
+            list.add(obj);
+        }
+        JdbcUtil.close(resultSet, statement, null);
+        return list;
     }
 
     public static int executeUpdate(String sql, Object... objects) throws SQLException {
-        PreparedStatement statement = JdbcUtil.getConnection().prepareStatement(sql);
+        PreparedStatement statement = threadLocal.get().prepareStatement(sql);
         if (objects != null) {
             for (int i = 0; i < objects.length; i++) {
                 statement.setObject((i + 1), objects[i]);
             }
         }
+        JdbcUtil.close(null, statement, null);
         return statement.executeUpdate();
     }
 

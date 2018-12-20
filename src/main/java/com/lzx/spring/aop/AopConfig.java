@@ -2,18 +2,14 @@ package com.lzx.spring.aop;
 
 import com.lzx.spring.aop.demo.AopTestAspect;
 import com.lzx.spring.aop.demo.JdbcAspect;
+import com.lzx.web.PowerAspect;
 import com.lzx.spring.aop.jdbc.QueryAspect;
 import com.lzx.spring.aop.jdbc.UpdateAspect;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import javax.management.Query;
-
-@Configuration
-@EnableAspectJAutoProxy
-@ComponentScan("com.lzx.spring.aop")
+// @Configuration
+//@EnableAspectJAutoProxy
+// @ComponentScan("com.lzx.spring.aop")
 public class AopConfig {
 
     @Bean
@@ -34,5 +30,10 @@ public class AopConfig {
     @Bean
     public UpdateAspect getUpdateAspect(){
         return new UpdateAspect();
+    }
+
+    @Bean
+    public PowerAspect getPowerAspect(){
+        return new PowerAspect();
     }
 }

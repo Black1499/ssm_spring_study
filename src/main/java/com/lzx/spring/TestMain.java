@@ -1,19 +1,12 @@
 package com.lzx.spring;
 
-import com.lzx.entity.Employee;
-import com.lzx.spring.aop.AopConfig;
-import com.lzx.spring.aop.demo.AopTest;
-import com.lzx.spring.aop.demo.BookOperation;
-import com.lzx.spring.aop.jdbc.EmployeeDAO;
+import com.lzx.config.SpringServiceConfig;
+import com.lzx.web.PowerAspect;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class TestMain {
+
     public static void main(String[] args) throws Exception {
         // xml配置读取
 //        ClassPathXmlApplicationContext context
@@ -28,19 +21,23 @@ public class TestMain {
 
         // aop配置使用
 //        System.out.println("========aop one======");
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AopConfig.class);
+//        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AopConfig.class);
 //        AopTest aopTest = applicationContext.getBean(AopTest.class);
 //        aopTest.print();
 //        System.out.println("========aop two======");
 //        BookOperation book = applicationContext.getBean(BookOperation.class);
 //        book.insert();
 
-        System.out.println("======AOP JDBC========");
-        EmployeeDAO dao = applicationContext.getBean(EmployeeDAO.class);
+//        System.out.println("======AOP JDBC========");
+//        EmployeeDAO dao = applicationContext.getBean(EmployeeDAO.class);
+//
+//        List<Employee> employees = dao.selectAll();
+//        System.out.println(employees.size());
 
-        dao.selectAll();
+        // System.out.println(dao.insert());
 
-        //System.out.println(dao.insert());
-
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringServiceConfig.class);
+        PowerAspect bean = applicationContext.getBean(PowerAspect.class);
+        bean.powerFilter();
     }
 }

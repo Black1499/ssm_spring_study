@@ -35,11 +35,6 @@
         <!--<property name="basePackage" value="com.lzx.dao" />-->
     <!--</bean>-->
 
-    <!--&lt;!&ndash;配置声明式事务管理&ndash;&gt;-->
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-    <!--</bean>-->
-	<!---->
-    <!--<tx:annotation-driven proxy-target-class="true" />-->
+
 
 <!--</beans>-->
