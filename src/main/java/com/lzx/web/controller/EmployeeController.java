@@ -1,4 +1,4 @@
-package com.lzx.web;
+package com.lzx.web.controller;
 
 import com.lzx.dao.EmployeeMapper;
 import com.lzx.entity.Employee;

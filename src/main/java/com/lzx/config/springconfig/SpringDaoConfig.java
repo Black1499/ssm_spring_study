@@ -1,5 +1,6 @@
-package com.lzx.config;
+package com.lzx.config.springconfig;
 
+import com.lzx.config.MybatisConfig;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -11,7 +12,6 @@ import java.beans.PropertyVetoException;
 
 
 @Configuration
-// 注解装配该包下的所有bean
 @ComponentScan(basePackages = "com.lzx.dao")
 @PropertySource("classpath:jdbc.properties")
 @Import(MybatisConfig.class)

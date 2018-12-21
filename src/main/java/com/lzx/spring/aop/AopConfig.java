@@ -2,7 +2,6 @@ package com.lzx.spring.aop;
 
 import com.lzx.spring.aop.demo.AopTestAspect;
 import com.lzx.spring.aop.demo.JdbcAspect;
-import com.lzx.web.PowerAspect;
 import com.lzx.spring.aop.jdbc.QueryAspect;
 import com.lzx.spring.aop.jdbc.UpdateAspect;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +31,5 @@ public class AopConfig {
         return new UpdateAspect();
     }
 
-    @Bean
-    public PowerAspect getPowerAspect(){
-        return new PowerAspect();
-    }
+
 }

@@ -1,4 +1,4 @@
-package com.lzx.Exceptions;
+package com.lzx.web.exceptions;
 
 public class PowerException extends Exception {
     public PowerException(){

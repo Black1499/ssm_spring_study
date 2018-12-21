@@ -29,7 +29,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.lzx.dao"  targetProject="src\main\java">
         </javaClientGenerator>
 
-        <table tableName="employee">
+        <table tableName="user">
             <property name="useActualColumnNames" value="false"/>
         </table>
     </context>

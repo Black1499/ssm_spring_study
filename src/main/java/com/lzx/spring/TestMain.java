@@ -1,10 +1,5 @@
 package com.lzx.spring;
 
-import com.lzx.config.SpringServiceConfig;
-import com.lzx.web.PowerAspect;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 public class TestMain {
 
     public static void main(String[] args) throws Exception {
@@ -36,8 +31,5 @@ public class TestMain {
 
         // System.out.println(dao.insert());
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringServiceConfig.class);
-        PowerAspect bean = applicationContext.getBean(PowerAspect.class);
-        bean.powerFilter();
     }
 }
