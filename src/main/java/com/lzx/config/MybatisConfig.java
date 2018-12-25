@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -53,8 +54,13 @@ public class MybatisConfig {
 
     @Bean("transactionManager")
     public DataSourceTransactionManager dataSourceTransactionManagerConfig() throws PropertyVetoException {
-        DataSourceTransactionManager manager = new DataSourceTransactionManager();
-        manager.setDataSource(this.dataSourceConfig());
-        return manager;
+        return new DataSourceTransactionManager(this.dataSourceConfig());
+    }
+
+
+    // JdbcTemplate
+    @Bean
+    public JdbcTemplate  jdbcTemplateConfig() throws PropertyVetoException {
+        return new JdbcTemplate(dataSourceConfig());
     }
 }
