@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzx.dao.NewsMapper">
+    <insert id="insertNews" keyColumn="id" useGeneratedKeys="true">
+        insert into news values(0, #{title}, #{body});
+    </insert>
+
+    <select id="listAll" resultType="com.lzx.entity.News">
+        select id,title,body from news
+    </select>
+</mapper>
