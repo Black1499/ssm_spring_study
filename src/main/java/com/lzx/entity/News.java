@@ -3,10 +3,13 @@ package com.lzx.entity;
 import java.io.Serializable;
 
 public class News implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     private int id;
     private String title;
     private String body;
+
+    // 使用该关键字序列化时忽略该对象
+    private transient String date;
 
     public News(int id, String title, String body) {
         this.id = id;

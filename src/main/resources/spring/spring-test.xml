@@ -35,5 +35,29 @@
                 <value>book2</value>
             </list>
         </property>
+        <!--<property name="map">-->
+            <!--<map>-->
+                <!--<entry key="key1" value="value1"/>-->
+                <!--<entry key="key2" value="value2"/>-->
+            <!--</map>-->
+        <!--</property>-->
+        <!--<property name="props">-->
+            <!--]<props>-->
+                <!--<prop key="prop1">value1</prop>-->
+                <!--<prop key="prop3">value2</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+        <!--<property name="set">-->
+            <!--<set>-->
+                <!--<value>value1</value>-->
+                <!--<value>value2</value>-->
+            <!--</set>-->
+        <!--</property>-->
+        <!--<property name="array">-->
+            <!--<array>-->
+                <!--<value>value1</value>-->
+                <!--<value>value2</value>-->
+            <!--</array>-->
+        <!--</property>-->
     </bean>
 </beans>

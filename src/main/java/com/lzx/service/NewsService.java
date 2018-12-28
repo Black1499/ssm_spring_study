@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface NewsService {
     List<News> listAll();
+
     int addNews(News news);
+
+    News getNewsById(int id);
 }

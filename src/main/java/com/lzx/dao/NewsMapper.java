@@ -11,5 +11,7 @@ public interface NewsMapper {
     List<News> listAll();
 
     int insertNews(News news);
+
+    News getById(int id);
 }
 

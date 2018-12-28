@@ -8,4 +8,7 @@
     <select id="listAll" resultType="com.lzx.entity.News">
         select id,title,body from news
     </select>
+    <select id="getById" resultType="com.lzx.entity.News">
+        select id,title,body from news where id = #{id}
+    </select>
 </mapper>

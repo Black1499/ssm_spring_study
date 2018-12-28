@@ -12,9 +12,9 @@ import java.beans.PropertyVetoException;
 
 
 @Configuration
-@ComponentScan(basePackages = "com.lzx.dao")
-@PropertySource("classpath:jdbc.properties")
-@Import(MybatisConfig.class)
+@ComponentScan(basePackages = "com.lzx.dao") // 扫描包
+@PropertySource("classpath:jdbc.properties") // 读取properties配置文件
+@Import(MybatisConfig.class) // 导入MyBatis的配置
 public class SpringDaoConfig  {
 
     @Bean

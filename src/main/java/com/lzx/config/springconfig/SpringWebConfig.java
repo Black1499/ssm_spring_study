@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EnableAspectJAutoProxy
+
 @ComponentScan(basePackages = "com.lzx.web")
 @Configuration
 @EnableWebMvc
